@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한국콘텐츠아카데미</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{--ink:#1A1A1A;--sub:#666666;--line:#E5E5E5;--bg:#F7F7F7;--accent:#5B4BFF;--accent-d:#4536D6;--accent-l:#EEEBFF}
+body{margin:0;background:#FFFFFF;color:#1A1A1A;font-family:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:15px;line-height:1.6}
+a{color:inherit}
+button,input,select{font-family:inherit}
+:focus-visible{outline:3px solid #5B4BFF;outline-offset:2px}
+html{scroll-behavior:smooth}
+body{word-break:keep-all}
+.box .art{left:auto;right:0;width:58%}
+[data-show="n"]{display:none !important}
+.wrap{max-width:1200px;margin:0 auto;padding-left:24px;padding-right:24px;box-sizing:border-box}
+
+/* header */
+.hdr{position:relative;background:#FFFFFF;border-bottom:1px solid var(--line)}
+.logo{font-size:24px;font-weight:900;letter-spacing:-0.03em;color:var(--ink);text-decoration:none}
+.logo b{color:var(--accent)}
+.search{display:flex;align-items:center;gap:8px;flex:1 1 260px;max-width:420px;min-width:0;background:#F2F2F2;border-radius:999px;padding:0 18px;height:42px}
+.search input{flex:1;min-width:0;border:0;outline:0;background:transparent;font-size:14px;color:var(--ink)}
+.search:focus-within{outline:2px solid #5B4BFF}
+.navzone{display:flex;flex-wrap:wrap}
+.navzone > a{display:block;padding:14px 20px 12px;font-size:16px;font-weight:700;text-decoration:none;color:var(--ink);border-bottom:3px solid transparent}
+.navzone > a:hover,.navzone > a:focus-visible{color:var(--accent);border-bottom-color:var(--accent)}
+.mega{display:none;position:absolute;left:0;right:0;top:100%;z-index:30;background:#FFFFFF;border-top:1px solid var(--line);border-bottom:1px solid var(--line);box-shadow:0 16px 32px rgba(0,0,0,.08)}
+.hdr:has(.navzone:hover) .mega,.hdr:has(.navzone:focus-within) .mega,.mega:hover{display:block}
+.mega-col a{display:block;padding:5px 0;font-size:14px;color:var(--sub);text-decoration:none}
+.mega-col a:hover,.mega-col a:focus-visible{color:var(--accent);text-decoration:underline}
+.mega-col h3 a{color:var(--ink);font-size:16px;font-weight:700;padding:0 0 10px}
+.mega-col h3 a:hover{color:var(--accent)}
+.util a{font-size:14px;color:var(--ink);text-decoration:none}
+.util a:hover{color:var(--accent)}
+
+/* hero */
+.hero{background:linear-gradient(180deg,#F1EEFF 0%,#FFFFFF 100%);color:var(--ink)}
+
+/* category boxes */
+.art{position:absolute;inset:0;width:100%;height:100%}
+.box{position:relative;overflow:hidden;box-sizing:border-box;min-height:200px;border-radius:22px;padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between;gap:20px;text-decoration:none;color:var(--ink)}
+.box:hover{box-shadow:0 8px 24px rgba(0,0,0,.12)}
+[data-w="w"]{flex:1 1 520px}[data-w="n"]{flex:1 1 340px}
+[data-tone="1"]{background:#EEEBFF;--m1:#5B4BFF;--m2:#B9B0FF}
+[data-tone="2"]{background:#FFE8EF;--m1:#E8346E;--m2:#FF9DB8}
+[data-tone="3"]{background:#E3F8F1;--m1:#0FA37A;--m2:#7FE0C0}
+[data-tone="4"]{background:#FFF3D6;--m1:#E08A00;--m2:#FFCF66}
+[data-tone="5"]{background:#E4F3FF;--m1:#1D7DD8;--m2:#8CC8F5}
+
+/* carousels */
+.track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 2px 8px}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 calc((100% - 40px) / 3);min-width:0;scroll-snap-align:start;text-decoration:none;color:var(--ink);display:flex;flex-direction:column;gap:12px}
+.thumb{position:relative;overflow:hidden;aspect-ratio:16 / 10;border-radius:18px;padding:22px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
+.thumb-s{position:relative;font-size:13px;font-weight:700;color:rgba(0,0,0,.55)}
+.thumb-t{position:relative;max-width:56%;font-size:22px;font-weight:900;line-height:1.35;letter-spacing:-0.02em;color:#111111}
+.slide:hover .cap-t{text-decoration:underline}
+.arrow{width:40px;height:40px;border-radius:50%;border:1px solid #CCCCCC;background:#FFFFFF;color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.arrow:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:900px){.slide{flex-basis:calc((100% - 20px) / 2)}.mega{display:none !important}}
+@media (max-width:600px){.slide{flex-basis:84%}.thumb-t{font-size:21px}.hero-h{font-size:36px !important}}
+
+/* free lecture */
+.fl-card{background:#FFFFFF;border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.fl-img{aspect-ratio:16 / 8;background:linear-gradient(135deg,#5B4BFF,#A06BFF);color:#FFFFFF;padding:28px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.cal{background:#F5F5F3;border:1px solid var(--line);border-radius:14px;padding:22px;box-sizing:border-box}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#FFFFFF;border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:14px}
+.dow{text-align:center;font-size:13px;font-weight:700;padding:6px 0;color:var(--ink)}
+.dow[data-sun="y"]{color:#FF4F81}
+.day{min-height:72px;background:#FFFFFF;border:1px solid var(--line);border-radius:8px;padding:6px 8px;box-sizing:border-box;font-size:13px;overflow:hidden}
+.day[data-blank="y"]{background:#EDEDEA;border-color:transparent}
+.day[data-sun="y"] .dn{color:#FF4F81}
+.dn{display:inline-block;min-width:22px;text-align:center;line-height:22px}
+.day[data-today="y"] .dn{background:#FF4F81;color:#FFFFFF;border-radius:50%;font-weight:700}
+.ev{display:block;margin-top:4px;padding:3px 6px;border-left:3px solid #FF4F81;background:#FFE8EF;font-size:11px;line-height:1.35;color:#7A1030;border-radius:2px;text-decoration:none}
+.btn-main{display:inline-block;padding:14px 28px;border:0;border-radius:999px;background:var(--accent);color:#FFFFFF;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none}
+.btn-main:hover{background:var(--accent-d)}
+.btn-line{display:inline-block;padding:13px 26px;border:1px solid #BBBBBB;border-radius:999px;background:#FFFFFF;color:var(--ink);font-weight:700;font-size:15px;cursor:pointer;text-decoration:none}
+.btn-line:hover{border-color:var(--accent);color:var(--accent)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:14px;font-weight:700}
+.inp{height:46px;box-sizing:border-box;width:100%;border:1px solid #BBBBBB;border-radius:8px;padding:0 14px;font-size:15px;background:#FFFFFF;color:var(--ink)}
+.inp:focus{outline:2px solid #5B4BFF;border-color:#5B4BFF}
+@media (max-width:600px){.day{min-height:54px;padding:4px}.ev{font-size:0;padding:0;height:6px;border-left-width:0;background:#FF4F81}}
+
+</style>
+</head>
+<body>
+<template id="tpl"><div id="top" style="background:#FFFFFF;color:var(--ink)">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="m-compass" viewBox="0 0 160 100"><circle cx="118" cy="52" r="30" fill="#fff" stroke="var(--m1)" stroke-width="4"/><polygon points="118,28 127,52 109,52" fill="var(--m2)"/><polygon points="118,76 127,52 109,52" fill="var(--m1)"/><circle cx="118" cy="52" r="3" fill="#fff"/></symbol><symbol id="m-ai" viewBox="0 0 160 100"><path d="M118 22L124 44L146 50L124 56L118 78L112 56L90 50L112 44Z" fill="var(--m1)"/><path d="M142 16L145 25L154 28L145 31L142 40L139 31L130 28L139 25Z" fill="var(--m2)"/><circle cx="96" cy="76" r="4" fill="var(--m2)"/></symbol><symbol id="m-clip" viewBox="0 0 160 100"><rect x="98" y="20" width="40" height="58" rx="5" fill="#fff" stroke="var(--m1)" stroke-width="3"/><rect x="108" y="14" width="20" height="10" rx="3" fill="var(--m1)"/><path d="M107 46l7 7l14-16" stroke="var(--m1)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="106" y="62" width="24" height="4" rx="2" fill="var(--m2)"/></symbol><symbol id="m-shield" viewBox="0 0 160 100"><path d="M118 18L146 28V50C146 66 134 76 118 82C102 76 90 66 90 50V28Z" fill="var(--m1)"/><path d="M106 50l9 9l16-18" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="m-flag" viewBox="0 0 160 100"><rect x="100" y="18" width="5" height="64" rx="2" fill="var(--m1)"/><path d="M105 20H144L134 34L144 48H105Z" fill="var(--m2)"/><rect x="92" y="80" width="24" height="4" rx="2" fill="var(--m1)"/></symbol><symbol id="m-video" viewBox="0 0 160 100"><rect x="90" y="38" width="50" height="34" rx="6" fill="var(--m1)"/><rect x="100" y="29" width="18" height="10" rx="3" fill="var(--m1)"/><circle cx="115" cy="55" r="11" fill="#fff"/><circle cx="115" cy="55" r="5" fill="var(--m2)"/><circle cx="132" cy="46" r="2.5" fill="var(--m2)"/></symbol><symbol id="m-phone" viewBox="0 0 160 100"><rect x="102" y="14" width="32" height="68" rx="7" fill="var(--m1)"/><rect x="106" y="20" width="24" height="52" rx="3" fill="#fff"/><polygon points="113,38 113,54 126,46" fill="var(--m1)"/><rect x="112" y="76" width="12" height="2.5" rx="1" fill="var(--m2)"/></symbol><symbol id="m-blog" viewBox="0 0 160 100"><rect x="94" y="16" width="44" height="62" rx="5" fill="#fff" stroke="var(--m1)" stroke-width="3"/><rect x="102" y="28" width="28" height="5" rx="2" fill="var(--m1)"/><rect x="102" y="40" width="28" height="4" rx="2" fill="var(--m2)"/><rect x="102" y="50" width="22" height="4" rx="2" fill="var(--m2)"/><rect x="126" y="48" width="7" height="34" rx="2" fill="var(--m1)" transform="rotate(30 129 65)"/></symbol><symbol id="m-social" viewBox="0 0 160 100"><rect x="90" y="22" width="46" height="32" rx="9" fill="var(--m1)"/><polygon points="100,54 108,54 98,64" fill="var(--m1)"/><path d="M113 46l-9-9a5 5 0 0 1 9-5a5 5 0 0 1 9 5z" fill="#fff"/><rect x="112" y="56" width="36" height="24" rx="8" fill="var(--m2)"/><circle cx="122" cy="68" r="2.5" fill="#fff"/><circle cx="130" cy="68" r="2.5" fill="#fff"/><circle cx="138" cy="68" r="2.5" fill="#fff"/></symbol><symbol id="m-link" viewBox="0 0 160 100"><g transform="rotate(-30 118 52)"><rect x="88" y="44" width="38" height="16" rx="8" fill="none" stroke="var(--m1)" stroke-width="6"/><rect x="110" y="44" width="38" height="16" rx="8" fill="none" stroke="var(--m2)" stroke-width="6"/></g></symbol><symbol id="m-chart" viewBox="0 0 160 100"><rect x="94" y="60" width="13" height="22" rx="2" fill="var(--m2)"/><rect x="112" y="46" width="13" height="36" rx="2" fill="var(--m1)"/><rect x="130" y="28" width="13" height="54" rx="2" fill="var(--m1)"/><path d="M92 46L112 32L124 38L144 18" stroke="var(--m2)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="m-box" viewBox="0 0 160 100"><rect x="94" y="40" width="48" height="40" rx="3" fill="var(--m1)"/><rect x="90" y="30" width="56" height="12" rx="2" fill="var(--m2)"/><rect x="114" y="30" width="8" height="50" fill="#fff" opacity=".85"/></symbol><symbol id="m-truck" viewBox="0 0 160 100"><rect x="86" y="34" width="42" height="34" rx="4" fill="var(--m1)"/><path d="M128 44H142L152 56V68H128Z" fill="var(--m2)"/><circle cx="102" cy="70" r="8" fill="#fff" stroke="var(--m1)" stroke-width="4"/><circle cx="140" cy="70" r="8" fill="#fff" stroke="var(--m1)" stroke-width="4"/></symbol><symbol id="m-store" viewBox="0 0 160 100"><polygon points="92,28 144,28 150,46 86,46" fill="var(--m2)"/><rect x="92" y="46" width="52" height="34" fill="#fff" stroke="var(--m1)" stroke-width="3"/><rect x="112" y="58" width="16" height="22" fill="var(--m1)"/><rect x="98" y="54" width="10" height="10" fill="var(--m2)"/></symbol><symbol id="m-page" viewBox="0 0 160 100"><rect x="88" y="22" width="62" height="54" rx="5" fill="#fff" stroke="var(--m1)" stroke-width="3"/><rect x="88" y="22" width="62" height="11" rx="4" fill="var(--m1)"/><rect x="95" y="40" width="22" height="28" rx="2" fill="var(--m2)"/><rect x="123" y="40" width="20" height="5" rx="2" fill="var(--m1)"/><rect x="123" y="50" width="20" height="5" rx="2" fill="var(--m1)" opacity=".5"/><rect x="123" y="60" width="14" height="5" rx="2" fill="var(--m1)" opacity=".5"/></symbol><symbol id="m-mega" viewBox="0 0 160 100"><polygon points="92,44 120,32 120,68 92,56" fill="var(--m1)"/><rect x="84" y="44" width="10" height="12" rx="2" fill="var(--m2)"/><rect x="96" y="56" width="9" height="16" rx="2" fill="var(--m1)"/><path d="M128 42q10 10 0 20" stroke="var(--m2)" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M136 34q16 18 0 36" stroke="var(--m2)" stroke-width="4" fill="none" stroke-linecap="round"/></symbol><symbol id="m-headset" viewBox="0 0 160 100"><path d="M96 56a22 22 0 0 1 44 0" stroke="var(--m1)" stroke-width="6" fill="none"/><rect x="90" y="54" width="12" height="20" rx="5" fill="var(--m1)"/><rect x="134" y="54" width="12" height="20" rx="5" fill="var(--m1)"/><path d="M140 72q-4 10 -22 10" stroke="var(--m2)" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="116" cy="82" r="4" fill="var(--m2)"/></symbol><symbol id="m-smile" viewBox="0 0 160 100"><circle cx="118" cy="52" r="30" fill="var(--m2)" stroke="var(--m1)" stroke-width="4"/><circle cx="108" cy="46" r="4" fill="var(--m1)"/><circle cx="128" cy="46" r="4" fill="var(--m1)"/><path d="M106 58q12 14 24 0" stroke="var(--m1)" stroke-width="5" fill="none" stroke-linecap="round"/></symbol><symbol id="m-goods" viewBox="0 0 160 100"><rect x="94" y="36" width="36" height="42" rx="6" fill="var(--m1)"/><path d="M130 46q16 4 0 22" stroke="var(--m1)" stroke-width="6" fill="none"/><rect x="94" y="50" width="36" height="9" fill="var(--m2)"/><path d="M104 28q4-8 0-12M116 28q4-8 0-12" stroke="var(--m2)" stroke-width="3" fill="none" stroke-linecap="round"/></symbol><symbol id="m-ebook" viewBox="0 0 160 100"><rect x="88" y="26" width="30" height="54" rx="3" fill="var(--m1)"/><rect x="119" y="26" width="30" height="54" rx="3" fill="var(--m2)"/><rect x="94" y="36" width="18" height="4" rx="2" fill="#fff"/><rect x="94" y="46" width="18" height="3" rx="1.5" fill="#fff" opacity=".7"/><rect x="125" y="36" width="18" height="4" rx="2" fill="#fff"/><rect x="125" y="46" width="18" height="3" rx="1.5" fill="#fff" opacity=".7"/></symbol><symbol id="m-class" viewBox="0 0 160 100"><rect x="86" y="22" width="64" height="42" rx="4" fill="var(--m1)"/><rect x="91" y="27" width="54" height="32" rx="2" fill="#fff"/><circle cx="118" cy="38" r="6" fill="var(--m2)"/><path d="M106 58a12 12 0 0 1 24 0Z" fill="var(--m2)"/><rect x="112" y="64" width="12" height="8" fill="var(--m1)"/><rect x="102" y="72" width="32" height="4" rx="2" fill="var(--m1)"/></symbol><symbol id="m-laptop" viewBox="0 0 160 100"><rect x="96" y="26" width="46" height="34" rx="3" fill="var(--m1)"/><rect x="100" y="30" width="38" height="26" fill="#fff"/><rect x="104" y="35" width="16" height="3" rx="1.5" fill="var(--m1)"/><rect x="104" y="42" width="26" height="3" rx="1.5" fill="var(--m2)"/><rect x="104" y="49" width="20" height="3" rx="1.5" fill="var(--m2)"/><polygon points="88,64 150,64 144,74 94,74" fill="var(--m2)"/></symbol><symbol id="m-edit" viewBox="0 0 160 100"><rect x="86" y="28" width="66" height="46" rx="5" fill="var(--m1)"/><rect x="93" y="37" width="30" height="7" rx="2" fill="var(--m2)"/><rect x="93" y="48" width="46" height="7" rx="2" fill="#fff" opacity=".85"/><rect x="93" y="59" width="22" height="7" rx="2" fill="var(--m2)"/><rect x="124" y="32" width="3" height="38" fill="#fff"/><polygon points="120,32 131,32 125.5,38" fill="#fff"/></symbol><symbol id="m-image" viewBox="0 0 160 100"><rect x="88" y="24" width="62" height="52" rx="5" fill="#fff" stroke="var(--m1)" stroke-width="3"/><polygon points="92,72 111,46 124,62 133,52 146,72" fill="var(--m1)"/><circle cx="137" cy="38" r="6" fill="var(--m2)"/><path d="M92 18L94 24L100 26L94 28L92 34L90 28L84 26L90 24Z" fill="var(--m2)"/></symbol><symbol id="m-audio" viewBox="0 0 160 100"><rect x="90" y="42" width="7" height="20" rx="3.5" fill="var(--m1)"/><rect x="101" y="30" width="7" height="44" rx="3.5" fill="var(--m2)"/><rect x="112" y="20" width="7" height="64" rx="3.5" fill="var(--m1)"/><rect x="123" y="35" width="7" height="34" rx="3.5" fill="var(--m2)"/><rect x="134" y="26" width="7" height="52" rx="3.5" fill="var(--m1)"/><rect x="145" y="44" width="7" height="16" rx="3.5" fill="var(--m2)"/></symbol><symbol id="m-prompt" viewBox="0 0 160 100"><rect x="88" y="22" width="62" height="40" rx="9" fill="var(--m1)"/><polygon points="102,62 112,62 100,76" fill="var(--m1)"/><rect x="97" y="32" width="32" height="5" rx="2.5" fill="#fff"/><rect x="97" y="43" width="22" height="5" rx="2.5" fill="#fff" opacity=".7"/><rect x="123" y="42" width="4" height="9" fill="var(--m2)"/></symbol><symbol id="m-notion" viewBox="0 0 160 100"><rect x="90" y="24" width="28" height="28" rx="5" fill="var(--m1)"/><rect x="122" y="24" width="28" height="28" rx="5" fill="var(--m2)"/><rect x="90" y="56" width="28" height="28" rx="5" fill="var(--m2)"/><rect x="122" y="56" width="28" height="28" rx="5" fill="var(--m1)"/><rect x="96" y="34" width="16" height="4" rx="2" fill="#fff"/><rect x="128" y="34" width="16" height="4" rx="2" fill="#fff"/><rect x="96" y="66" width="16" height="4" rx="2" fill="#fff"/><rect x="128" y="66" width="16" height="4" rx="2" fill="#fff"/></symbol><symbol id="m-sheet" viewBox="0 0 160 100"><rect x="88" y="22" width="62" height="56" rx="4" fill="#fff" stroke="var(--m1)" stroke-width="3"/><rect x="88" y="22" width="62" height="12" rx="3" fill="var(--m1)"/><path d="M108 34V78M129 34V78M88 48H150M88 63H150" stroke="var(--m2)" stroke-width="2.5"/></symbol></defs></svg>
+
+  <header class="hdr">
+    <div class="wrap" style="padding-top:16px;padding-bottom:6px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 32px">
+      <a class="logo" href="#top">한국<b>콘텐츠</b>아카데미</a>
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666666" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" placeholder="어떤 강의를 찾으시나요?" aria-label="강의 검색">
+      </div>
+      <div class="util" style="margin-left:auto;display:flex;gap:20px">
+        <a href="#free">무료 특강</a>
+        <a href="#top">나의 강의실</a>
+        <a href="#top">로그인</a>
+      </div>
+    </div>
+    <div class="wrap">
+      <nav class="navzone" aria-label="주 메뉴">
+        <sc-for list="{{menus}}" as="m" hint-placeholder-count="5">
+          <a href="{{m.href}}">{{m.name}}</a>
+        </sc-for>
+      </nav>
+    </div>
+    <div class="mega">
+      <div class="wrap" style="padding-top:28px;padding-bottom:32px;display:flex;gap:24px">
+        <sc-for list="{{menus}}" as="m" hint-placeholder-count="5">
+          <div class="mega-col" style="flex:1 1 0;min-width:0">
+            <h3 style="margin:0"><a href="{{m.href}}">{{m.name}}</a></h3>
+            <sc-for list="{{m.subs}}" as="s" hint-placeholder-count="5">
+              <a href="{{m.href}}">{{s.name}}</a>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap" style="padding-top:80px;padding-bottom:84px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px">
+      <span style="padding:6px 16px;border-radius:999px;background:var(--accent-l);color:var(--accent-d);font-size:14px;font-weight:700">AI · 영상 · 글쓰기 · 커머스 · 손기술</span>
+      <h1 class="hero-h" style="margin:0;font-size:58px;line-height:1.25;font-weight:900;letter-spacing:-0.03em">AI로 시작해서,<br><span style="color:var(--accent)">내 콘텐츠로 수익화까지.</span></h1>
+      <p style="margin:0;font-size:18px;line-height:1.8;color:#555570">GPT·클로드로 만드는 기본기부터 영상, 글쓰기, 커머스, 손기술 창업까지.<br>5개 메뉴에서 순서대로 배웁니다.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:6px">
+        <a class="btn-main" href="#cats">5개 메뉴 둘러보기</a>
+        <a class="btn-line" href="#free">무료 특강 신청</a>
+      </div>
+      <p style="margin:0;font-size:13px;color:#7A7A92">수익은 개인의 노력과 시장·플랫폼 상황에 따라 다르며 보장되지 않습니다.</p>
+    </div>
+  </section>
+
+  <section id="cats" style="background:var(--bg)">
+    <div class="wrap" style="padding-top:64px;padding-bottom:72px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <h2 style="margin:0;font-size:32px;font-weight:900;letter-spacing:-0.03em">지금 필요한 수업부터 골라보세요</h2>
+        <p style="margin:0;color:var(--sub)">지금 내 상황에 가장 가까운 문장을 눌러 보세요.</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px">
+        <sc-for list="{{boxes}}" as="b" hint-placeholder-count="5">
+          <a class="box" href="{{b.href}}" data-tone="{{b.tone}}" data-w="{{b.flex}}">
+            <svg class="art" viewBox="0 0 160 100" preserveAspectRatio="xMaxYMid meet" aria-hidden="true"><circle cx="118" cy="52" r="44" fill="var(--m2)" opacity=".4"/><use href="#m-{{b.motif}}"/></svg>
+            <div style="position:relative;max-width:54%;display:flex;flex-direction:column;gap:10px">
+              <span style="font-size:13px;font-weight:700;color:var(--sub)">{{b.tag}}</span>
+              <span style="font-size:26px;font-weight:900;line-height:1.35;letter-spacing:-0.02em">{{b.title}}</span>
+              <span style="font-size:14px;color:#444444">{{b.sub}}</span>
+            </div>
+            <span style="position:relative;font-size:14px;font-weight:700">수업 보기 &rarr;</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-top:72px;padding-bottom:16px;display:flex;flex-direction:column;gap:56px">
+    <sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+      <div id="{{r.anchor}}" style="display:flex;flex-direction:column;gap:18px;scroll-margin-top:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+            <h2 style="margin:0;font-size:26px;font-weight:900;letter-spacing:-0.03em">{{r.no}}. {{r.name}}</h2>
+            <p style="margin:0;color:var(--sub)">{{r.lead}}</p>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="arrow" type="button" aria-label="{{r.name}} 이전 강의" onClick="{{r.prev}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button class="arrow" type="button" aria-label="{{r.name}} 다음 강의" onClick="{{r.next}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="track" id="{{r.trackId}}" tabindex="0" role="region" aria-label="{{r.name}} 강의 목록">
+          <sc-for list="{{r.cards}}" as="c" hint-placeholder-count="6">
+            <a class="slide" href="#free">
+              <div class="thumb" data-tone="{{r.tone}}">
+                <svg class="art" viewBox="0 0 160 100" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><circle cx="118" cy="52" r="44" fill="var(--m2)" opacity=".4"/><use href="#m-{{c.motif}}"/></svg>
+                <span class="thumb-s">{{c.sub}}</span>
+                <span class="thumb-t">{{c.title}}</span>
+              </div>
+              <div class="cap-t" style="font-size:16px;font-weight:700;line-height:1.45">{{c.title}}</div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+    <p style="margin:0;font-size:13px;color:var(--sub)">강의명과 썸네일은 시안용 예시이며, 실제 등록 강의와 이미지로 교체됩니다.</p>
+  </section>
+
+  <section id="free" style="margin-top:56px;background:#FFFFFF;border-top:1px solid var(--line)">
+    <div class="wrap" style="padding-top:72px;padding-bottom:40px;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px">
+        <h2 style="margin:0;font-size:34px;font-weight:900;letter-spacing:-0.03em">예정된 무료특강</h2>
+        <a href="#apply" style="font-size:15px;font-weight:700;text-decoration:none">전체 일정 보기 &rarr;</a>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+        <div class="fl-card" style="flex:1 1 400px;min-width:0">
+          <div data-show="{{fl.hasEv}}">
+            <div class="fl-img">
+              <span style="font-size:14px;font-weight:700;color:#E2DCFF">{{fl.tools}}</span>
+              <span style="font-size:34px;font-weight:900;line-height:1.3;letter-spacing:-0.03em">{{fl.heading}}</span>
+              <span style="font-size:16px;color:#F0ECFF">{{fl.catch}}</span>
+            </div>
+            <div style="padding:26px 28px 30px;display:flex;flex-direction:column;gap:14px">
+              <span style="align-self:flex-start;padding:5px 14px;border-radius:999px;background:#FFE8EF;color:#D4285E;font-size:13px;font-weight:700">신청 가능</span>
+              <h3 style="margin:0;font-size:22px;font-weight:700;line-height:1.5">{{fl.title}}</h3>
+              <p style="margin:0;color:var(--sub);line-height:1.75">{{fl.desc}}</p>
+              <p style="margin:0;color:var(--sub)">{{fl.when}}</p>
+              <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:4px">
+                <button class="btn-line" type="button" onClick="{{fl.apply}}">특강 신청하기 &rarr;</button>
+                <a class="btn-line" href="#cats">커리큘럼 미리보기 &nearr;</a>
+              </div>
+            </div>
+          </div>
+          <div data-show="{{fl.noEv}}" style="padding:60px 28px;text-align:center;color:var(--sub)">이 달에 예정된 무료 특강이 없습니다.<br>다른 달의 일정을 확인해 보세요.</div>
+        </div>
+
+        <div class="cal" style="flex:1.2 1 460px;min-width:0">
+          <div class="cal-head">
+            <button class="arrow" type="button" aria-label="이전 달" onClick="{{cal.prev}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <div style="text-align:center">
+              <div style="font-size:12px;font-weight:700;color:#D4285E">무료특강 일정</div>
+              <div style="font-size:22px;font-weight:900;letter-spacing:-0.02em">{{cal.label}}</div>
+            </div>
+            <button class="arrow" type="button" aria-label="다음 달" onClick="{{cal.next}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+          <div class="cal-grid">
+            <sc-for list="{{cal.dows}}" as="d" hint-placeholder-count="7">
+              <div class="dow" data-sun="{{d.sun}}">{{d.name}}</div>
+            </sc-for>
+            <sc-for list="{{cal.cells}}" as="c" hint-placeholder-count="35">
+              <div class="day" data-blank="{{c.blank}}" data-sun="{{c.sun}}" data-today="{{c.today}}">
+                <span class="dn">{{c.day}}</span>
+                <span class="ev" data-show="{{c.evShow}}">{{c.evTitle}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <p style="margin:14px 2px 0;font-size:12px;color:var(--sub)">일정과 특강명은 시안용 예시입니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="apply" data-show="{{form.open}}" style="background:var(--bg);scroll-margin-top:16px">
+      <div class="wrap" style="padding-top:44px;padding-bottom:56px;display:flex;justify-content:center">
+        <div style="flex:1 1 520px;max-width:560px;min-width:0;box-sizing:border-box;background:#FFFFFF;border:1px solid var(--line);border-radius:14px;padding:30px">
+          <form id="freeForm" data-show="{{form.formShow}}" style="display:flex;flex-direction:column;gap:18px" novalidate>
+            <h3 style="margin:0;font-size:22px;font-weight:900">무료특강 신청</h3>
+            <div style="padding:12px 14px;border-radius:8px;background:var(--accent-l);font-size:14px;font-weight:700;color:#4536D6">{{form.lecture}}</div>
+            <div class="field"><label for="f-name">이름</label><input class="inp" id="f-name" type="text" autocomplete="name" placeholder="홍길동"></div>
+            <div class="field"><label for="f-tel">연락처</label><input class="inp" id="f-tel" type="tel" autocomplete="tel" placeholder="010-0000-0000"></div>
+            <div class="field"><label for="f-mail">이메일 (선택)</label><input class="inp" id="f-mail" type="email" autocomplete="email" placeholder="example@email.com"></div>
+            <label style="display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--sub)"><input id="f-agree" type="checkbox" style="margin-top:4px;width:18px;height:18px"><span>개인정보 수집·이용에 동의합니다. (이름, 연락처 · 특강 안내 목적 · 안내 후 [보유 기간] 보관) [전문 보기]</span></label>
+            <p id="f-err" role="alert" data-show="n" style="margin:0;color:#C62828;font-size:14px;font-weight:700"></p>
+            <button class="btn-main" type="button" onClick="{{form.submit}}">무료특강 신청하기</button>
+            <p style="margin:0;font-size:12px;color:var(--sub)">시안 화면입니다. 실제 사이트에서는 신청 내용이 운영자에게 전달되도록 연결합니다.</p>
+          </form>
+          <div data-show="{{form.doneShow}}" style="display:flex;flex-direction:column;gap:12px;padding:20px 0">
+            <h3 style="margin:0;font-size:22px;font-weight:900">신청 화면 확인 완료</h3>
+            <p style="margin:0;color:var(--sub)">{{form.name}}님, 신청 흐름 시안입니다. 이 화면에서는 입력 내용이 저장되거나 전송되지 않았습니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#F2F2F2;color:#666666;border-top:1px solid var(--line)">
+    <div class="wrap" style="padding-top:40px;padding-bottom:44px;display:flex;flex-direction:column;gap:10px;font-size:13px;line-height:1.8">
+      <div style="font-size:18px;font-weight:700;color:#1A1A1A">주식회사 인사이트엠</div>
+      <div>대표 [대표자명] · 사업자등록번호 [000-00-00000] · 통신판매업 신고번호 [신고번호 입력]</div>
+      <div>원격평생교육시설 신고번호 [관할 교육청 신고번호 입력] · 주소 [사업장 주소]</div>
+      <div>개인정보관리책임자 [성명] · 고객센터 [전화번호·이메일 입력] · 이용약관 · 개인정보처리방침 · 환불 규정 [문구 입력]</div>
+      <div style="padding-top:12px;margin-top:6px;border-top:1px solid #DDDDDD">한국콘텐츠아카데미는 AI·콘텐츠·커머스 교육을 제공하며, 수익을 보장하지 않습니다. 수익은 개인의 노력과 시장·플랫폼 상황에 따라 다릅니다.</div>
+    </div>
+  </footer>
+
+</div>
+</template>
+<div id="root"></div>
+<script>
+class Component  {
+  constructor(props) {
+    
+    this.state = { done: false, name: '', open: false, mo: 0, lecture: '' };
+  }
+
+  renderVals() {
+    const s = this.state || {};
+    const mo = s.mo || 0;
+
+    const data = [
+      { no: '1', name: 'AI로 수익화하기', tone: '1', tag: 'AI 시작',
+        lead: 'AI 도구 사용법부터 글·이미지·영상 만들기까지 기본기를 익힙니다.',
+        boxTitle: 'AI로 뭘 할 수 있는지 궁금해요', boxSub: 'GPT · 클로드 · AI 글쓰기 · AI 이미지 · AI 영상',
+        subs: ['AI 도구로 가능한 수익 구조 이해', 'GPT 기본 사용법', '클로드 기본 사용법', 'AI 글쓰기 기본', 'AI 이미지 생성 기본', 'AI 영상 생성 기본'],
+        cards: [
+          ['1-1', 'AI 도구로 가능한 수익 구조 이해', 'AI 수익화 입문', 'compass'],
+          ['1-2', 'GPT 기본 사용법', 'ChatGPT', 'prompt'],
+          ['1-3', '클로드 기본 사용법', 'Claude', 'ai'],
+          ['1-4', 'AI 글쓰기 기본', '글쓰기', 'blog'],
+          ['1-5', 'AI 이미지 생성 기본', '이미지', 'image'],
+          ['1-6', 'AI 영상 생성 기본', '영상', 'video']
+        ] },
+      { no: '2', name: '영상으로 수익화하기', tone: '2', tag: '영상 채널',
+        lead: '채널을 기획하고 편집해서 키우는 방법을 배웁니다.',
+        boxTitle: '영상으로 채널을 키우고 싶어요', boxSub: '유튜브 · 숏폼 · 촬영·편집 · AI 영상',
+        subs: ['유튜브 채널 기획·운영', '숏폼(쇼츠·릴스·클립) 편집', '영상 촬영·편집 기초', 'AI 영상·음성 제작', '채널 성장과 광고·협찬 표기 규정'],
+        cards: [
+          ['2-1', '유튜브 채널 기획·운영', '유튜브', 'video'],
+          ['2-2', '숏폼(쇼츠·릴스·클립) 편집', '숏폼', 'phone'],
+          ['2-3', '영상 촬영·편집 기초', '촬영·편집', 'edit'],
+          ['2-4', 'AI 영상·음성 제작', 'AI 영상·음성', 'audio'],
+          ['2-5', '채널 성장과 광고·협찬 표기 규정', '규정', 'shield']
+        ] },
+      { no: '3', name: '글쓰기로 수익화하기', tone: '3', tag: '글쓰기',
+        lead: '블로그, 스레드, 전자책으로 나를 알리는 글쓰기를 배웁니다.',
+        boxTitle: '글로 나를 알리고 싶어요', boxSub: '블로그 · 스레드 · AI 프롬프트 · 전자책',
+        subs: ['블로그 기획·운영하기', '스레드 글쓰기', 'AI 프롬프트', '전자책·디지털 상품 만들기', '저작권·광고 표기 체크'],
+        cards: [
+          ['3-1', '블로그 기획·운영하기', '블로그', 'blog'],
+          ['3-2', '스레드 글쓰기', '스레드', 'social'],
+          ['3-3', 'AI 프롬프트', '프롬프트', 'prompt'],
+          ['3-4', '전자책·디지털 상품 만들기', '전자책', 'ebook'],
+          ['3-5', '저작권·광고 표기 체크', '체크리스트', 'clip']
+        ] },
+      { no: '4', name: '커머스로 수익화하기', tone: '4', tag: '스토어·구매대행',
+        lead: '구매대행부터 해외 판매, 쿠팡까지 판매 채널별 운영을 배웁니다.',
+        boxTitle: '물건을 팔아 보고 싶어요', boxSub: '구매대행 · 해외 판매 · 쿠팡 · 제휴마케팅',
+        subs: ['구매대행 입문·소싱', '배송·통관·제품안전 규정', '사업자 등록·세무 기초와 고객 응대·정산', '해외 판매(엣시·쇼피파이)', '쿠팡파트너스·제휴마케팅', '스마트스토어·쿠팡 입점·운영'],
+        cards: [
+          ['4-1', '구매대행 입문·소싱', '구매대행', 'box'],
+          ['4-2', '배송·통관·제품안전 규정', '규정 확인', 'truck'],
+          ['4-3', '사업자 등록·세무 기초와 고객 응대·정산', '운영 기초', 'headset'],
+          ['4-4', '해외 판매(엣시·쇼피파이)', '해외 판매', 'store'],
+          ['4-5', '쿠팡파트너스·제휴마케팅', '제휴마케팅', 'link'],
+          ['4-6', '스마트스토어·쿠팡 입점·운영', '입점·운영', 'page']
+        ] },
+      { no: '5', name: '프리랜서·창업하기', tone: '5', tag: '손기술',
+        lead: '손으로 만드는 기술을 작은 창업과 프리랜서 활동으로 연결합니다.',
+        boxTitle: '손기술로 작게 시작하고 싶어요', boxSub: '캘리그라피 · POP · 공예 · 식물 · 원데이클래스',
+        subs: ['손기술 아이템 실전 교육', '소규모 창업 준비(사업자등록, 인허가)', '판매·홍보(스토어, SNS, 오프라인 영업)', '원데이클래스·출강·프리랜서 활동'],
+        cards: [
+          ['5-1', '손기술 아이템 실전 교육', '캘리그라피·POP·공예·식물', 'goods'],
+          ['5-2', '소규모 창업 준비(사업자등록, 인허가)', '창업 준비', 'shield'],
+          ['5-3', '판매·홍보(스토어, SNS, 오프라인 영업)', '판매·홍보', 'mega'],
+          ['5-4', '원데이클래스·출강·프리랜서 활동', '클래스·프리랜서', 'class']
+        ] }
+    ];
+
+    const scrollRow = (id, dir) => () => {
+      const el = document.getElementById(id);
+      if (el) { el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' }); }
+    };
+
+    const menus = data.map((d) => ({
+      name: d.name,
+      href: '#cat-' + d.no,
+      subs: d.subs.map((n) => ({ name: n }))
+    }));
+
+    const flexes = ['w', 'w', 'n', 'n', 'n'];
+    const boxMotifs = ['ai', 'video', 'blog', 'store', 'goods'];
+    const boxes = data.map((d, i) => ({
+      motif: boxMotifs[i], tag: d.tag, tone: d.tone, href: '#cat-' + d.no, flex: flexes[i],
+      title: d.boxTitle, sub: d.boxSub
+    }));
+
+    const rows = data.map((d) => ({
+      no: d.no, name: d.name, tone: d.tone, lead: d.lead,
+      anchor: 'cat-' + d.no, trackId: 'track-' + d.no,
+      prev: scrollRow('track-' + d.no, -1),
+      next: scrollRow('track-' + d.no, 1),
+      cards: d.cards.map((c) => ({ code: c[0], title: c[1], sub: c[2], motif: c[3] }))
+    }));
+
+    /* free lecture calendar (sample events) */
+    const events = [
+      { y: 2026, m: 10, d: 29, time: '20:00', short: 'AI 콘텐츠 제작 특강', title: 'AI 도구로 시작하는 콘텐츠 제작 무료 특강',
+        heading: 'AI 활용\n콘텐츠 제작 입문', catchLine: '첫 영상을 만들기까지의 과정을 함께 봅니다', tools: 'ChatGPT · 클로드 · 캡컷 · 노션',
+        desc: '같은 콘텐츠를 만들 때 AI 도구를 하나씩 적용해 보며 제작 과정을 줄이는 방법을 비교합니다. 정규 강의를 듣기 전에 수업 방식을 미리 체험하는 온라인 무료 특강입니다.' },
+      { y: 2026, m: 11, d: 12, time: '20:00', short: '구매대행 규정 특강', title: '구매대행 시작 전 꼭 확인할 규정 무료 특강',
+        heading: '구매대행\n시작 전 체크', catchLine: '통관과 제품안전 규정부터 점검합니다', tools: '구매대행 · 스토어 운영',
+        desc: '구매대행을 시작하기 전에 확인해야 할 통관, 제품안전, 표기 규정을 정리하는 온라인 무료 특강입니다.' }
+    ];
+    const base = new Date(2026, 9 + mo, 1);
+    const Y = base.getFullYear();
+    const M = base.getMonth() + 1;
+    const first = base.getDay();
+    const dim = new Date(Y, M, 0).getDate();
+    const now = new Date();
+    const cells = [];
+    for (let i = 0; i < first; i++) { cells.push({ blank: 'y', sun: 'n', today: 'n', day: '', evShow: 'n', evTitle: '' }); }
+    for (let d = 1; d <= dim; d++) {
+      const ev = events.find((e) => e.y === Y && e.m === M && e.d === d);
+      const dow = (first + d - 1) % 7;
+      cells.push({
+        blank: 'n', sun: dow === 0 ? 'y' : 'n',
+        today: (now.getFullYear() === Y && now.getMonth() + 1 === M && now.getDate() === d) ? 'y' : 'n',
+        day: String(d), evShow: ev ? 'y' : 'n', evTitle: ev ? ev.short : ''
+      });
+    }
+    while (cells.length % 7 !== 0) { cells.push({ blank: 'y', sun: 'n', today: 'n', day: '', evShow: 'n', evTitle: '' }); }
+    const names = ['일', '월', '화', '수', '목', '금', '토'];
+    const cal = {
+      label: Y + '년 ' + M + '월',
+      dows: names.map((n, i) => ({ name: n, sun: i === 0 ? 'y' : 'n' })),
+      cells: cells,
+      prev: () => this.setState({ mo: mo - 1 }),
+      next: () => this.setState({ mo: mo + 1 })
+    };
+
+    const cur = events.find((e) => e.y === Y && e.m === M);
+    const wd = cur ? names[new Date(cur.y, cur.m - 1, cur.d).getDay()] : '';
+    const fl = {
+      hasEv: cur ? 'y' : 'n',
+      noEv: cur ? 'n' : 'y',
+      title: cur ? cur.title : '',
+      heading: cur ? cur.heading.replace('\n', ' ') : '',
+      catch: cur ? cur.catchLine : '',
+      tools: cur ? cur.tools : '',
+      desc: cur ? cur.desc : '',
+      when: cur ? (cur.y + '.' + cur.m + '.' + cur.d + ' (' + wd + ') ' + cur.time + ' · 한국 시간 · 온라인 · 무료') : '',
+      apply: () => {
+        this.setState({ open: true, done: false, lecture: cur ? cur.title : '' });
+        setTimeout(() => {
+          const el = document.getElementById('apply');
+          if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        }, 50);
+      }
+    };
+
+    const submit = () => {
+      const v = (id) => { const e = document.getElementById(id); return e ? e.value.trim() : ''; };
+      const agree = document.getElementById('f-agree');
+      const err = document.getElementById('f-err');
+      const show = (msg) => { if (err) { err.textContent = msg; err.setAttribute('data-show', 'y'); } };
+      const name = v('f-name');
+      const tel = v('f-tel');
+      if (!name) { show('이름을 입력해 주세요.'); return; }
+      if (tel.replace(/[^0-9]/g, '').length < 9) { show('연락처를 정확히 입력해 주세요.'); return; }
+      if (!agree || !agree.checked) { show('개인정보 수집·이용에 동의해 주세요.'); return; }
+      this.setState({ done: true, name: name });
+    };
+
+    const form = {
+      open: s.open ? 'y' : 'n',
+      formShow: s.done ? 'n' : 'y',
+      doneShow: s.done ? 'y' : 'n',
+      name: s.name || '',
+      lecture: s.lecture || '',
+      submit: submit
+    };
+
+    return { menus, boxes, rows, cal, fl, form };
+  }
+}
+
+const comp = new Component({});
+comp.setState = function(p){ this.state = Object.assign({}, this.state, p); render(); };
+const tpl = document.getElementById('tpl');
+const root = document.getElementById('root');
+function get(path, ctx){ return path.split('.').reduce((o,k)=> (o==null?o:o[k]), ctx); }
+function interp(str, ctx){ return str.replace(/\{\{\s*([\w.]+)\s*\}\}/g,(_,p)=>{const v=get(p,ctx);return v==null?'':String(v);}); }
+function build(node, ctx){
+  if(node.nodeType===3){ return document.createTextNode(interp(node.nodeValue, ctx)); }
+  if(node.nodeType!==1) return null;
+  if(node.tagName==='SC-FOR'){
+    const frag=document.createDocumentFragment();
+    const list=get(node.getAttribute('list').replace(/[{}\s]/g,''), ctx)||[];
+    const as=node.getAttribute('as');
+    list.forEach(item=>{ const c=Object.assign({}, ctx); c[as]=item;
+      node.childNodes.forEach(ch=>{const n=build(ch,c); if(n) frag.appendChild(n);}); });
+    return frag;
+  }
+  const svg = node.namespaceURI==='http://www.w3.org/2000/svg';
+  const el=svg?document.createElementNS('http://www.w3.org/2000/svg',node.tagName):document.createElement(node.tagName.toLowerCase());
+  for(const at of node.attributes){
+    if(at.name==='onclick'){
+      const fn=get(at.value.replace(/[{}\s]/g,''), ctx);
+      if(typeof fn==='function') el.addEventListener('click', ()=>fn());
+    } else if(at.name!=='hint-placeholder-count'){ el.setAttribute(at.name, interp(at.value, ctx)); }
+  }
+  node.childNodes.forEach(ch=>{const n=build(ch,ctx); if(n) el.appendChild(n);});
+  return el;
+}
+function render(){
+  const y=window.scrollY;
+  const ctx=comp.renderVals();
+  root.replaceChildren();
+  tpl.content.childNodes.forEach(ch=>{const n=build(ch,ctx); if(n) root.appendChild(n);});
+  window.scrollTo(0,y);
+}
+document.addEventListener('submit',e=>e.preventDefault());
+render();
+</script>
+</body>
+</html>
